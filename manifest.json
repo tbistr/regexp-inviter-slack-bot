@@ -1,0 +1,31 @@
+{
+	"display_information": {
+		"name": "regexp-inviter"
+	},
+	"features": {
+		"bot_user": {
+			"display_name": "regexp-inviter",
+			"always_online": false
+		},
+		"slash_commands": [
+			{
+				"command": "/regexpinvite",
+				"description": "Invite a user to a channel using regexp",
+				"should_escape": false
+			}
+		]
+	},
+	"oauth_config": {
+		"scopes": {
+			"bot": ["commands", "calls:write"]
+		}
+	},
+	"settings": {
+		"interactivity": {
+			"is_enabled": true
+		},
+		"org_deploy_enabled": false,
+		"socket_mode_enabled": true,
+		"token_rotation_enabled": false
+	}
+}

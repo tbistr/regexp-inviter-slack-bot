@@ -5,5 +5,8 @@
         "quickfix.biome": "explicit",
         "source.organizeImports.biome": "explicit"
     },
-    "terminal.integrated.defaultProfile.linux": "fish"
+    "terminal.integrated.defaultProfile.linux": "fish",
+    "[json]": {
+        "editor.defaultFormatter": "biomejs.biome"
+    }
 }
