@@ -1,4 +1,4 @@
-import { App, LogLevel, SocketModeReceiver } from "@slack/bolt";
+import { App, LogLevel } from "@slack/bolt";
 import {
 	InputUserAndRegexpModal,
 	InvitationCompletedModal,
@@ -106,18 +106,28 @@ app.view(
 		);
 		const metadata = JSON.parse(body.view.private_metadata) as PrivateMeta;
 
-		// // チャンネルリストを取得
-		// const result = await client.conversations.list();
-		// const channels =
-		// 	result.channels?.filter((channel) => regexp.test(channel.name ?? "")) || [];
+		// 自分自身をチャンネルに追加
+		for (const channel of metadata.channels) {
+			await client.conversations
+				.join({
+					channel,
+				})
+				.catch((e) => {
+					console.error(e);
+				});
+		}
 
-		// // ユーザーをチャンネルに追加
-		// for (const channel of channels) {
-		// 	await client.conversations.invite({
-		// 		channel: channel.id ?? "",
-		// 		users: user ?? "",
-		// 	});
-		// }
+		// ユーザーをチャンネルに追加
+		for (const channel of metadata.channels) {
+			await client.conversations
+				.invite({
+					channel,
+					users: metadata.users.join(","),
+				})
+				.catch((e) => {
+					console.error(e);
+				});
+		}
 
 		// 完了メッセージを送信
 		// ackでメッセージを送信
